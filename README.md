@@ -57,6 +57,9 @@ pip3 install wget
 ## Example
 
 ```
+# Import functions
+from DIV2K-loader import DIV2KImport, DIV2KImageDataset
+
 # Define interested subsets
 subsets = {'bicubic_x2' : 'all', 'bicubic_x4' : 'train', 'unknown_x4' : 'valid'}
 

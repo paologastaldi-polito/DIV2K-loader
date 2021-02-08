@@ -171,12 +171,14 @@ class DIV2KImageDataset(Dataset):
                  subsets={}, # eg. sets = {'bicubic_x4' : 'all', 'unknown_x2' : 'train', 'unknown_x4' : 'valid'}
                  is_color=False,
                  size=[1404, 1404], # original DIV2K image: 2040x1404
+                 sidelength=1404,
                  preload=False,
                  idx_to_sample=[],
                  transform=None,
                  with_coords=False):
         self.subsets = subsets
         self.size = size
+        self.sidelength = sidelength
         self.idx_to_sample = idx_to_sample
         self.is_color = is_color
         self.preload = preload
@@ -231,7 +233,8 @@ class DIV2KImageDataset(Dataset):
         if self.with_coords:
             img = img.permute(1, 2, 0).view(-1, 1)
             img = {'img' : img}
-            coords = get_mgrid(self.size[0], 2)
+            # coords = get_mgrid(self.size[0], 2)
+            coords = get_mgrid(self.sidelength, 2)
             img = [coords, img]
 
         return img

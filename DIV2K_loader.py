@@ -143,15 +143,15 @@ def get_mgrid(sidelength, dim=2):
 def DIV2KSubset2Folder(subset):
     return links[subset]['path'], links[subset]['downscale']
 
-def default_transform(sidelength):
+def default_transform(sidelength, max_length=1404):
     # original image: 2040x1404
-    size = [1404, 1404]
-    img = img.crop((0, 0, size[0], size[1]))
-    img = img.convert('L')
+#     size = [1404, 1404]
+#     img = img.crop((0, 0, size[0], size[1]))
+#     img = img.convert('L')
     return Compose([
-        # Grayscale(num_output_channels=1),
+        Grayscale(num_output_channels=1),
+        CenterCrop(max_length),
         Resize(sidelength),
-        # CenterCrop(sidelength),
         ToTensor(),
         Normalize(torch.Tensor([0.5]), torch.Tensor([0.5]))
     ])

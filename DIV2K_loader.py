@@ -229,7 +229,6 @@ class DIV2KImageDataset(Dataset):
 
         if self.transform is not None:
             img = self.transform(img)
-            img = {'img' : img}
         if self.with_coords:
             img = img.permute(1, 2, 0).view(-1, 1)
             img = {'img' : img}

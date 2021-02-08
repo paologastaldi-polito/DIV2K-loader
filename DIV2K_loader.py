@@ -144,8 +144,12 @@ def DIV2KSubset2Folder(subset):
     return links[subset]['path'], links[subset]['downscale']
 
 def default_transform(sidelength):
+    # original image: 2040x1404
+    size = [1404, 1404]
+    img = img.crop((0, 0, size[0], size[1]))
+    img = img.convert('L')
     return Compose([
-        Grayscale(num_output_channels=1),
+        # Grayscale(num_output_channels=1),
         Resize(sidelength),
         # CenterCrop(sidelength),
         ToTensor(),

@@ -143,14 +143,9 @@ def get_mgrid(sidelength, dim=2):
 def DIV2KSubset2Folder(subset):
     return links[subset]['path'], links[subset]['downscale']
 
-def default_transform(sidelength, max_length=1404):
-    # original image: 2040x1404
-#     size = [1404, 1404]
-#     img = img.crop((0, 0, size[0], size[1]))
-#     img = img.convert('L')
+def default_transform(sidelength):
     return Compose([
-        Grayscale(num_output_channels=1),
-        CenterCrop(max_length),
+        # Grayscale(num_output_channels=1),
         Resize(sidelength),
         ToTensor(),
         Normalize(torch.Tensor([0.5]), torch.Tensor([0.5]))
@@ -175,7 +170,7 @@ class DIV2KImageDataset(Dataset):
                 #  in_folder=DIV2K_DATASET_ROOT,
                  subsets={}, # eg. sets = {'bicubic_x4' : 'all', 'unknown_x2' : 'train', 'unknown_x4' : 'valid'}
                  is_color=False,
-                 size=[256, 256],
+                 size=[1404, 1404], # original DIV2K image: 2040x1404
                  preload=False,
                  idx_to_sample=[],
                  transform=None,

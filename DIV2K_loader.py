@@ -226,7 +226,8 @@ class DIV2KImageDataset(Dataset):
         img = Image.open(filename, 'r')
         if not self.is_color:
             img = img.convert("L")
-        new_size = min(img.size)
+        width, heigth = img.size
+        new_size = min(width, heigth)
         # img = img.crop((0, 0, self.size[0], self.size[1]))
         img = img.crop((0, 0, new_size, new_size))
 

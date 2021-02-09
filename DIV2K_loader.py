@@ -177,7 +177,7 @@ class DIV2KImageDataset(Dataset):
                  transform=None,
                  with_coords=False):
         self.subsets = subsets
-        self.size = size
+        # self.size = size
         self.sidelength = sidelength
         self.idx_to_sample = idx_to_sample
         self.is_color = is_color

@@ -170,7 +170,7 @@ class DIV2KImageDataset(Dataset):
                 #  in_folder=DIV2K_DATASET_ROOT,
                  subsets={}, # eg. sets = {'bicubic_x4' : 'all', 'unknown_x2' : 'train', 'unknown_x4' : 'valid'}
                  is_color=False,
-                 size=[1404, 1404], # original DIV2K image: 2040x1404
+                 # size=[1404, 1404], # original DIV2K image: different size for each image
                  sidelength=1404,
                  preload=False,
                  idx_to_sample=[],
@@ -226,7 +226,9 @@ class DIV2KImageDataset(Dataset):
         img = Image.open(filename, 'r')
         if not self.is_color:
             img = img.convert("L")
-        img = img.crop((0, 0, self.size[0], self.size[1]))
+        new_size = min(img.size)
+        # img = img.crop((0, 0, self.size[0], self.size[1]))
+        img = img.crop((0, 0, new_size, new_size))
 
         if self.transform is not None:
             img = self.transform(img)

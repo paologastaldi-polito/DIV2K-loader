@@ -145,9 +145,8 @@ def DIV2KSubset2Folder(subset):
 
 def default_transform(sidelength):
     return Compose([
-        Grayscale(num_output_channels=1),
+        # Grayscale(num_output_channels=1),
         Resize(sidelength),
-        # CenterCrop(sidelength),
         ToTensor(),
         Normalize(torch.Tensor([0.5]), torch.Tensor([0.5]))
     ])
@@ -171,13 +170,15 @@ class DIV2KImageDataset(Dataset):
                 #  in_folder=DIV2K_DATASET_ROOT,
                  subsets={}, # eg. sets = {'bicubic_x4' : 'all', 'unknown_x2' : 'train', 'unknown_x4' : 'valid'}
                  is_color=False,
-                 size=[256, 256],
+                 # size=[1404, 1404], # original DIV2K image: different size for each image
+                 sidelength=1404,
                  preload=False,
                  idx_to_sample=[],
                  transform=None,
                  with_coords=False):
         self.subsets = subsets
-        self.size = size
+        # self.size = size
+        self.sidelength = sidelength
         self.idx_to_sample = idx_to_sample
         self.is_color = is_color
         self.preload = preload
@@ -225,13 +226,18 @@ class DIV2KImageDataset(Dataset):
         img = Image.open(filename, 'r')
         if not self.is_color:
             img = img.convert("L")
-        img = img.crop((0, 0, self.size[0], self.size[1]))
+        width, heigth = img.size
+        new_size = min(width, heigth)
+        # img = img.crop((0, 0, self.size[0], self.size[1]))
+        img = img.crop((0, 0, new_size, new_size))
 
         if self.transform is not None:
             img = self.transform(img)
         if self.with_coords:
             img = img.permute(1, 2, 0).view(-1, 1)
-            coords = get_mgrid(self.size[0], 2)
+            img = {'img' : img}
+            # coords = get_mgrid(self.size[0], 2)
+            coords = get_mgrid(self.sidelength, 2)
             img = [coords, img]
 
         return img

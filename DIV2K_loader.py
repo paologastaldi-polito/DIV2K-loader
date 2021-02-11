@@ -3,7 +3,7 @@ import zipfile
 import torchvision
 from torch.utils.data import Dataset, Subset, DataLoader
 import torch
-from torchvision.transforms import Resize, Compose, ToTensor, Normalize, Grayscale, ToPILImage, GaussianBlur, CenterCrop
+from torchvision.transforms import Resize, Compose, ToTensor, Normalize, Grayscale, ToPILImage, CenterCrop
 import wget
 import glob
 from PIL import Image

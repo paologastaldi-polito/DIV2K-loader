@@ -5,8 +5,10 @@ See `explore_DIV2K.ipynb` for more details.
 
 ## Contributors
 
+- Abbamonte Matteo (_matteoabbamonte_)
 - Gastaldi Paolo (_paologastaldi-polito_)
 - Gennero Stefano (_Stevezbiz_)
+- Koudounas Alkis (_koudounasalkis_)
 
 ## Links
 
@@ -58,7 +60,7 @@ pip3 install wget
 
 ```
 # Import functions
-from DIV2K-loader import DIV2KImport, DIV2KImageDataset
+from DIV2K_loader import DIV2KImport, DIV2KImageDataset
 
 # Define interested subsets
 subsets = {'bicubic_x2' : 'all', 'bicubic_x4' : 'train', 'unknown_x4' : 'valid'}
